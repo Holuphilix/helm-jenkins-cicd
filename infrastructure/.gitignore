@@ -1,0 +1,31 @@
+# Terraform
+terraform/
+*.tfstate
+*.tfstate.backup
+.terraform/       
+
+# Kubernetes configuration
+.kube/
+kubeconfig
+
+# Docker
+Dockerfile.*
+*.dockerignore
+
+# Local environment and temporary files
+*.log
+*.swp
+*.swo
+*.bak
+*.tmp
+.DS_Store
+.vscode/
+.idea/
+
+# Python and other build artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Jenkins local files
+.jenkins/
