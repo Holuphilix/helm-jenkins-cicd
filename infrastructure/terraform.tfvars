@@ -17,7 +17,7 @@ availability_zone_2   = "us-east-1b"
 ami_id              = "ami-020cba7c55df1f615"
 instance_type       = "t3.medium"
 key_name            = "jenkins-key"
-allowed_cidrs       = ["78.135.30.254/32"]
+allowed_cidrs       = ["0.0.0.0/0"]
 
 node_desired_capacity = 2
 node_min_capacity     = 1

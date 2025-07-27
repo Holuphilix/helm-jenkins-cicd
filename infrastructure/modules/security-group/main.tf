@@ -11,8 +11,8 @@ resource "aws_security_group" "jenkins_sg" {
     cidr_blocks = var.allowed_cidrs
   }
 
-ingress {
-    description = "Allow SSH"
+  ingress {
+    description = "Allow HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
