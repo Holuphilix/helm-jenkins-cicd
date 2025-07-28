@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = "holuphilix/jenkins-cicd-app:latest"
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
         SSH_CREDENTIALS_ID = 'EC2_SSH_KEY'
-        EC2_HOST = credentials('EC2_HOST') // This should be a Secret Text credential
+        EC2_HOST = credentials('EC2_HOST') // Secret Text type in Jenkins Credentials
     }
 
     triggers {
@@ -46,7 +46,7 @@ pipeline {
                 sshagent (credentials: [SSH_CREDENTIALS_ID]) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
-                            cd ~/app &&
+                            cd ~/jenkins-cicd-app/deployment-scripts &&
                             chmod +x deploy.sh &&
                             ./deploy.sh
                         '
