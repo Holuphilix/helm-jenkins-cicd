@@ -1715,4 +1715,53 @@ containers:
 | Helm Chart Update    | Use dynamic image repository and tag values |
 
 
+Perfect, you’ve provided the full ECR repository URI:
+
+```
+615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+```
+
+Now let’s continue step by step using **your actual values**.
+
+---
+
+### ✅ Step-by-Step with Your ECR Info
+
+#### 🔹 1. Authenticate Docker to your ECR:
+
+```bash
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 615299759133.dkr.ecr.us-east-1.amazonaws.com
+```
+
+#### 🔹 2. Build your Docker image:
+
+Run this from the root of your copied project directory:
+
+```bash
+docker build -t jenkins-cicd-app .
+```
+
+#### 🔹 3. Tag the image for your ECR repository:
+
+```bash
+docker tag jenkins-cicd-app:latest 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+```
+
+#### 🔹 4. Push the image to ECR:
+
+```bash
+docker push 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+```
+
+---
+
+### ✅ Next Steps After Push (Optional):
+
+Once the push is successful, you can:
+
+* Use it in an ECS Fargate or EC2 task definition.
+* Deploy via Helm or Kubernetes if you're containerizing Jenkins in EKS.
+* Connect it to your CI/CD pipeline.
+
+Let me know when you're done or if you encounter any error during the push process.
 

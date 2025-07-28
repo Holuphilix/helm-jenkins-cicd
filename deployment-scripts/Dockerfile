@@ -4,8 +4,8 @@ FROM node:18
 # Set working directory
 WORKDIR /app
 
-# Copy index.html
-COPY index.html .
+# Copy index.html from app/ directory
+COPY app/index.html .
 
 # Install express
 RUN npm init -y && npm install express
