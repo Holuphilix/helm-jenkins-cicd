@@ -2,3 +2,4 @@ apiVersion: v2
 name: jenkins-cicd-app
 version: 0.1.0
 description: A simple Helm chart for my Jenkins CI/CD web app
+appVersion: "1.0"

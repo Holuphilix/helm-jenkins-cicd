@@ -2,66 +2,70 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "holuphilix/jenkins-cicd-app:latest"
-        DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
-        SSH_CREDENTIALS_ID = 'EC2_SSH_KEY'
-        EC2_HOST = credentials('EC2_HOST') // Secret Text type in Jenkins Credentials
-    }
-
-    triggers {
-        githubPush()
+        ECR_REPO_URL = '615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app'
+        AWS_REGION = 'us-east-1'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        DEPLOY_SCRIPT = 'deployment-scripts/deploy.sh'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                echo "🧾 Checking out code..."
-                checkout scm
+                git url: 'https://github.com/Holuphilix/helm-jenkins-cicd.git', branch: 'main'
+            }
+        }
+
+        stage('Set up AWS Credentials') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-jenkins-creds']]) {
+                    sh '''
+                        echo "AWS credentials configured."
+                    '''
+                }
+            }
+        }
+
+        stage('Login to ECR') {
+            steps {
+                sh '''
+                    aws ecr get-login-password --region $AWS_REGION | \
+                    docker login --username AWS --password-stdin $ECR_REPO_URL
+                '''
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                echo "🐳 Building Docker image: ${DOCKER_IMAGE}"
-                script {
-                    dockerImage = docker.build("${DOCKER_IMAGE}")
-                }
+                sh '''
+                    docker build -t $ECR_REPO_URL:$IMAGE_TAG -f deployment-scripts/Dockerfile .
+                '''
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Push to ECR') {
             steps {
-                echo "📦 Pushing image to Docker Hub..."
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        dockerImage.push("latest")
-                    }
-                }
+                sh '''
+                    docker push $ECR_REPO_URL:$IMAGE_TAG
+                '''
             }
         }
 
-        stage('Deploy to EC2') {
+        stage('Deploy to EKS with Helm') {
             steps {
-                echo "🚀 Deploying to EC2 instance..."
-                sshagent (credentials: [SSH_CREDENTIALS_ID]) {
-                    sh """
-                        ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
-                            cd ~/jenkins-cicd-app/deployment-scripts &&
-                            chmod +x deploy.sh &&
-                            ./deploy.sh
-                        '
-                    """
-                }
+                sh '''
+                    chmod +x $DEPLOY_SCRIPT
+                    $DEPLOY_SCRIPT $ECR_REPO_URL:$IMAGE_TAG $AWS_REGION
+                '''
             }
         }
     }
 
     post {
         success {
-            echo "✅ Pipeline completed successfully!"
+            echo "✅ Deployment Successful!"
         }
         failure {
-            echo "❌ Pipeline failed."
+            echo "❌ Deployment Failed!"
         }
     }
 }

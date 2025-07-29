@@ -1765,3 +1765,94 @@ Once the push is successful, you can:
 
 Let me know when you're done or if you encounter any error during the push process.
 
+Awesome, glad it worked! 🎉
+
+---
+
+### For your README.md: Documenting the **Helm deployment** and **using your saved Docker images in ECR**
+
+Here's a clear, copy-paste-ready **Task Module** you can add in your README to explain your Helm setup and image management.
+
+---
+
+# Helm Deployment and Docker Image Workflow
+
+## Prerequisites
+
+* Kubernetes cluster configured (e.g., EKS)
+* `kubectl` configured to connect to your cluster
+* `helm` installed locally
+* Docker image pushed to AWS ECR repository
+
+---
+
+## Step 1: Authenticate Docker to AWS ECR
+
+```bash
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 615299759133.dkr.ecr.us-east-1.amazonaws.com
+```
+
+---
+
+## Step 2: Build and Push Docker Image to AWS ECR
+
+Build your Docker image locally, tag it with your ECR repo URL, and push it:
+
+```bash
+docker build -t 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest .
+docker push 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+```
+
+---
+
+## Step 3: Configure `values.yaml` for Helm Chart
+
+Set your Docker image repository and tag in `values.yaml`:
+
+```yaml
+image:
+  repository: 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+```
+
+---
+
+## Step 4: Deploy or Upgrade the Application with Helm
+
+Run this command to install or upgrade your Helm release:
+
+```bash
+helm upgrade my-web-app . --install --namespace default
+```
+
+---
+
+## Step 5: Access Your Application via Port Forwarding
+
+Get your pod name and forward the port to your local machine:
+
+```bash
+export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=jenkins-cicd-app,app.kubernetes.io/instance=my-web-app" -o jsonpath="{.items[0].metadata.name}")
+export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+```
+
+Then open your browser to:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Summary
+
+* Build and push Docker images to AWS ECR.
+* Configure your Helm chart `values.yaml` to use the correct image repo and tag.
+* Use Helm commands to deploy or upgrade your app.
+* Use `kubectl port-forward` to access your app locally.
+
+---
+
+Would you like me to help you generate a full README.md file with this included? Or help with the actual Helm module files?
