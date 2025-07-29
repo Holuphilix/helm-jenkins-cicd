@@ -2,70 +2,74 @@ pipeline {
     agent any
 
     environment {
-        ECR_REPO_URL = '615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app'
         AWS_REGION = 'us-east-1'
-        IMAGE_TAG = "${BUILD_NUMBER}"
-        DEPLOY_SCRIPT = 'deployment-scripts/deploy.sh'
+        ECR_REGISTRY = '615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app' 
+        IMAGE_TAG = "latest"
+        HELM_CHART_PATH = "./web-app/my-web-app/"
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
+        DOCKER_IMAGE = "${ECR_REGISTRY}:${IMAGE_TAG}"
+        DOCKERFILE_PATH = "./web-app/Dockerfile"
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git url: 'https://github.com/Holuphilix/helm-jenkins-cicd.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/Holuphilix/helm-jenkins-cicd.git'
             }
         }
 
-        stage('Set up AWS Credentials') {
+        stage('Lint Helm Chart') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-jenkins-creds']]) {
-                    sh '''
-                        echo "AWS credentials configured."
-                    '''
-                }
-            }
-        }
-
-        stage('Login to ECR') {
-            steps {
-                sh '''
-                    aws ecr get-login-password --region $AWS_REGION | \
-                    docker login --username AWS --password-stdin $ECR_REPO_URL
-                '''
+                sh 'helm lint ${HELM_CHART_PATH}'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-                    docker build -t $ECR_REPO_URL:$IMAGE_TAG -f deployment-scripts/Dockerfile .
-                '''
+                script {
+                    sh "docker build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE} ./web-app"
+                }
             }
         }
 
-        stage('Push to ECR') {
+        stage('Push Docker Image to ECR') {
             steps {
-                sh '''
-                    docker push $ECR_REPO_URL:$IMAGE_TAG
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: 'aws-iam-credentials', 
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    script {
+                        sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
+                        sh "docker push ${DOCKER_IMAGE}"
+                    }
+                }
             }
         }
 
-        stage('Deploy to EKS with Helm') {
+        stage('Deploy with Helm') {
             steps {
-                sh '''
-                    chmod +x $DEPLOY_SCRIPT
-                    $DEPLOY_SCRIPT $ECR_REPO_URL:$IMAGE_TAG $AWS_REGION
-                '''
+                sh "helm upgrade --install my-web-app ${HELM_CHART_PATH} --namespace default --set image.repository=${ECR_REGISTRY} --set image.tag=${IMAGE_TAG} --set replicaCount=2"
+            }
+        }
+
+        stage('Test Deployment') {
+            steps {
+                sh 'helm test my-web-app --namespace default'
             }
         }
     }
 
     post {
+        always {
+            sh 'docker logout'
+        }
         success {
-            echo "✅ Deployment Successful!"
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo "❌ Deployment Failed!"
+            echo 'Pipeline failed. Check logs for details.'
         }
     }
 }
