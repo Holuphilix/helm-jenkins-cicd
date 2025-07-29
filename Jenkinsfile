@@ -1,8 +1,9 @@
 pipeline {
     agent {
         docker {
-            image 'alpine/helm:3.14.2'  // Helm CLI image with Alpine base
-            args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock'
+            image 'alpine/helm:3.14.2'  // ✅ Helm CLI image with Alpine base
+            args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/jenkins/.kube:/root/.kube' 
+            // ✅ Mount host .kube directory into container to avoid permission issues
         }
     }
 
@@ -11,7 +12,8 @@ pipeline {
         ECR_REGISTRY = '615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app' 
         IMAGE_TAG = "latest"
         HELM_CHART_PATH = "./web-app/my-web-app/"
-        KUBECONFIG = "/var/lib/jenkins/.kube/config"
+        KUBECONFIG = "/root/.kube/config" 
+        // ✅ Inside container, this is where config is mounted (matches volume mount above)
         DOCKER_IMAGE = "${ECR_REGISTRY}:${IMAGE_TAG}"
         DOCKERFILE_PATH = "./web-app/Dockerfile"
     }
