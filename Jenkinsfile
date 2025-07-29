@@ -14,62 +14,71 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo "Cloning repository..."
                 git branch: 'main', url: 'https://github.com/Holuphilix/helm-jenkins-cicd.git'
             }
         }
 
         stage('Lint Helm Chart') {
             steps {
-                sh 'helm lint ${HELM_CHART_PATH}'
+                echo "Linting Helm chart..."
+                sh "helm lint ${HELM_CHART_PATH}"
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh "docker build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE} ./web-app"
-                }
+                echo "Building Docker image..."
+                sh "docker build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE} ./web-app"
             }
         }
 
         stage('Push Docker Image to ECR') {
             steps {
+                echo "Authenticating and pushing to Amazon ECR..."
                 withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId: 'aws-iam-credentials', 
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-iam-credentials',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    script {
-                        sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
-                        sh "docker push ${DOCKER_IMAGE}"
-                    }
+                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
+                    sh "docker push ${DOCKER_IMAGE}"
                 }
             }
         }
 
         stage('Deploy with Helm') {
             steps {
-                sh "helm upgrade --install my-web-app ${HELM_CHART_PATH} --namespace default --set image.repository=${ECR_REGISTRY} --set image.tag=${IMAGE_TAG} --set replicaCount=2"
+                echo "Deploying application using Helm..."
+                sh """
+                    helm upgrade --install my-web-app ${HELM_CHART_PATH} \
+                    --namespace default \
+                    --set image.repository=${ECR_REGISTRY} \
+                    --set image.tag=${IMAGE_TAG} \
+                    --set replicaCount=2
+                """
             }
         }
 
         stage('Test Deployment') {
             steps {
-                sh 'helm test my-web-app --namespace default'
+                echo "Testing deployment..."
+                sh "helm test my-web-app --namespace default"
             }
         }
     }
 
     post {
         always {
-            sh 'docker logout'
+            echo "Cleaning up..."
+            sh "docker logout ${ECR_REGISTRY}"
         }
         success {
-            echo 'Pipeline completed successfully!'
+            echo '✅ Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed. Check logs for details.'
+            echo '❌ Pipeline failed. Please check the logs.'
         }
     }
 }
