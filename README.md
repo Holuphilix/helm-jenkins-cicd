@@ -1872,10 +1872,7 @@ A `.helmignore` file was added inside the Helm chart directory (`web-app/`) to p
 ## 🧩 **Task 7: Dockerize, Push to ECR, and Automate Deployment with Jenkins & Helm**
 
 ### 🎯 **Objective**
-
-* Containerize your web application using Docker.
-* Create an AWS ECR repository to store your Docker image.
-* Automate the build, push, and deploy process using Jenkins pipeline and Helm charts.
+To containerize the web application using Docker, push the image to Amazon ECR, and deploy it to Amazon EKS using a Helm chart. This step also includes testing manual deployment before automating it in the CI/CD pipeline.
 
 ### 1️⃣ **Create a Dockerfile**
 
