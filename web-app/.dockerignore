@@ -1,2 +1,10 @@
-node_modules
-*.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.vscode
+.env
+*.md
+*.tgz
+*.tar
+*.zip

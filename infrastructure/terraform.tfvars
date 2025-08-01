@@ -1,3 +1,4 @@
+project_name        = "helm-jenkins-cicd"
 aws_region          = "us-east-1"
 environment         = "dev"
 
@@ -24,5 +25,4 @@ node_min_capacity     = 1
 node_max_capacity     = 3
 node_instance_types   = ["t3.medium"]
 
-project_name        = "helm-jenkins-cicd"
 

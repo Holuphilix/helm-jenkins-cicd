@@ -1,257 +1,254 @@
-# 🧠 **Capstone Project: Configuration Management With Helm**
+# 🧠 **Capstone Project: Configuration Management With Helm and Jenkins CI/CD Pipeline**
 
 ## 📘 **Project Scenario**
 
-In today’s DevOps-driven world, streamlining application deployments and managing Kubernetes resources efficiently is crucial. This capstone project introduces you to **Helm**, the powerful package manager for Kubernetes, and demonstrates how to integrate it with **Jenkins**, an industry-standard CI/CD automation tool.
+In today’s DevOps-driven world, streamlining application deployments and managing Kubernetes resources efficiently is crucial. This capstone project introduces you to **Helm**, the powerful package manager for Kubernetes, and demonstrates how to integrate it with **Jenkins**, a widely-used CI/CD automation tool.
 
-As a **Junior DevOps Engineer**, your mission is to design and implement a **simplified CI/CD pipeline** that uses **Helm charts** to automate the deployment of a **sample web application**. This project will help you solidify your understanding of modern DevOps tooling and give you hands-on experience with configuration management, infrastructure provisioning, and deployment automation.
-
+As a **DevOps Engineer**, your mission is to design and implement a **simplified CI/CD pipeline** that uses **Helm charts** to automate the deployment of a **sample web application**. This project will help you solidify your understanding of modern DevOps tooling and give you hands-on experience with configuration management, infrastructure provisioning, and deployment automation.
 
 ## 🧩 **Project Goals and Objectives**
 
-* Provision infrastructure using **Terraform** to host Jenkins.
-* Install and configure **Jenkins** with required plugins and security settings.
-* Learn the fundamentals of **Helm** and create basic Helm charts.
-* Automate application deployments using **Jenkins + Helm** integration.
-* Demonstrate a full CI/CD workflow in a modular, beginner-friendly way.
+- Provision infrastructure using **Terraform** to host Jenkins.
+- Install and configure **Jenkins** with required plugins and security settings.
+- Learn the fundamentals of **Helm** and create a basic Helm chart.
+- Automate application deployments using **Jenkins + Helm** integration.
+- Demonstrate a full CI/CD workflow in a modular, beginner-friendly way.
 
-
-## ✅ **Prerequisites**
+##  🧩 **Prerequisites**
 
 To successfully complete this project, you should have:
 
-* Basic understanding of **Jenkins** and its CI/CD concepts.
-* Completion of the following foundational mini-projects:
-
-  * *Introduction to Helm Charts*
-  * *Working with Helm Charts*
-* Access to a **Linux server** (e.g., EC2 or virtual machine) for hosting Jenkins.
-* A working **Terraform setup** (CLI installed and configured).
-* Basic understanding of **Git**, **Bash**, and **Kubernetes** concepts.
+- Basic understanding of **Jenkins** and CI/CD concepts.
+- Completion of the following foundational mini-projects:
+  - *Introduction to Helm Charts*
+  - *Working with Helm Charts*
+- Access to a **Linux server** (e.g., AWS EC2 or local VM) for hosting Jenkins.
+- A working **Terraform CLI** setup (installed and configured).
+- Familiarity with **Git**, **Bash scripting**, and **Kubernetes** basics.
 
 ## 📦 **Project Deliverables**
 
-### 📄 Documentation:
+### 📄 Documentation
 
-* Structured setup guides for Jenkins, Helm, and CI/CD pipeline implementation.
-* `user_data.sh` script for automated Jenkins provisioning.
-* Clear explanations of basic security practices used in Jenkins.
-* Helm chart structure and deployment examples.
+- Structured setup guides for Jenkins, Helm, and CI/CD pipeline implementation.
+- `user_data.sh` script for automated Jenkins provisioning.
+- Clear documentation of Jenkins plugin configuration and security practices.
+- Helm chart structure and deployment instructions.
 
-### 🎥 Demonstration:
+### 🎥 Demonstration
 
-* Walkthrough of:
-
-  * Infrastructure provisioning with Terraform
-  * Jenkins installation and configuration
-  * Helm chart creation for a sample web app
-  * CI/CD pipeline integration and automated deployment
-
+- Walkthrough of:
+  - Infrastructure provisioning with Terraform
+  - Jenkins installation and configuration
+  - Helm chart creation for a sample web app
+  - CI/CD pipeline integration and automated deployment
 
 ## 🧱 **Project Components**
 
 | Component                      | Description                                                             |
-| ------------------------------ | ----------------------------------------------------------------------- |
+|-------------------------------|-------------------------------------------------------------------------|
 | **Jenkins Server Setup**       | Provision a Jenkins host using Terraform and install Jenkins via script |
 | **Helm Chart Basics**          | Understand Helm chart structure and create a chart for a web app        |
 | **Working with Helm Charts**   | Deploy, customize, upgrade, and rollback applications using Helm        |
-| **Integrating Helm & Jenkins** | Automate Helm deployments through Jenkins pipelines                     |
-
+| **Integrating Helm & Jenkins** | Automate Helm deployments using Jenkins pipelines                       |
 
 ## 🧰 **Tools & Technologies Used**
 
 | Category           | Tools / Technologies                           |
-| ------------------ | ---------------------------------------------- |
+|--------------------|------------------------------------------------|
 | CI/CD              | Jenkins, Git                                   |
 | Infrastructure     | Terraform, AWS EC2                             |
 | Configuration Mgmt | Helm, kubectl, YAML                            |
-| Scripting          | Bash, user\_data.sh                            |
-| OS                 | Ubuntu 22.04 LTS                               |
-| Optional           | Docker (for `kind` or container-based testing) |
-
+| Scripting          | Bash (`user_data.sh`)                          |
+| Operating System   | Ubuntu 22.04 LTS                               |
+| Optional           | Docker (for local `kind` testing, if used)     |
 
 ## 🏗️ **Infrastructure Setup with Terraform**
 
 Terraform will be used to provision a Linux-based EC2 instance that runs Jenkins. The automation will:
 
-* Create a dedicated **VPC**, **subnet**, **security group**
-* Launch an **EC2 instance** using Ubuntu 22.04 AMI
-* Attach a **`user_data.sh`** script to install:
+- Create a dedicated **VPC**, **subnet**, and **security group**
+- Launch an **EC2 instance** using Ubuntu 22.04 LTS AMI
+- Attach a `user_data.sh` script to install:
+  - Java & Jenkins
+  - Git, Helm, kubectl
+  - Docker (optional, for local container-based testing)
 
-  * Java & Jenkins
-  * Docker (optional)
-  * Git, Helm, kubectl
+### 💡 Terraform Modules to Be Included
 
-### 💡 Terraform Modules to Be Included:
-
-* `vpc/` — Custom Virtual Private Cloud with subnet and routing
-* `security-group/` — Opens port 8080 for Jenkins access
-* `ec2/` — Provisions EC2 with user data to install Jenkins and dependencies
-
+- `vpc/` — Custom Virtual Private Cloud with subnet and routing
+- `security-group/` — Opens port 8080 for Jenkins access
+- `ec2/` — Provisions EC2 with user data to install Jenkins and dependencies
 
 ## 🔧 **Task 1: Project Directory and Structure Setup**
 
 ### 🎯 **Objective**
 
-To create a clean, modular, and well-organized directory structure for the capstone project, enabling smooth collaboration, CI/CD automation, infrastructure provisioning, and Helm chart management.
-
-This foundational setup prepares the project for upcoming stages, including Jenkins installation, Terraform-based infrastructure provisioning, Helm chart development, and CI/CD pipeline integration.
+Establish a clean, modular, and production-ready folder structure for the capstone project. This step lays the foundation for infrastructure provisioning, CI/CD with Jenkins, containerization with Docker, and Kubernetes deployment using Helm and Terraform modules.
 
 ### 📁 Step 1.1 — Create Project Root Directory
 
-In your local workspace or remote GitHub repository:
+In your local workspace:
 
 ```bash
 mkdir helm-jenkins-cicd
 cd helm-jenkins-cicd
 ```
-**Screenshot:** Create Project Directory
-![Create Project Directory](./docs/images/1.mkdir_helm_jenkins_cicd.png)
 
-### 🗂️ Step 1.2 — Create Subdirectories for Project Components
+### 🗂️ Step 1.2 — Create Top-Level Project Directories
 
 ```bash
-mkdir jenkins-setup helm-chart deployment-scripts infrastructure docs
+mkdir docs infrastructure jenkins-setup web-app
+touch .gitignore Jenkinsfile README.md
 ```
-**Screenshot:** Create Subdirectories for Project Components
-[Create Subdirectories for Project Components](./docs/images/2.mkdir_project_directories.png)
+### 📄 Step 1.3 — Create Subdirectories and Files for All Components
 
-#### 📁 Folder Purpose
-
-| Directory             | Description                                                              |
-| --------------------- | ------------------------------------------------------------------------ |
-| `jenkins-setup/`      | Jenkins installation, plugin setup, and user data script                 |
-| `helm-chart/`         | Helm chart files (Chart.yaml, templates/, values.yaml)                   |
-| `deployment-scripts/` | Shell scripts for Helm upgrades, Jenkins integration, and CI/CD triggers |
-| `infrastructure/`     | Terraform configuration to provision EC2, VPC, security groups, etc.     |
-| `docs/`               | Project diagrams, images, and screenshots                                |
-
-### 📝 Step 1.3 — Create Base Files and Templates
-
-Use these commands to generate all required files and directories:
+#### 🔧 Jenkins Setup
 
 ```bash
-# Root-level
-touch README.md
-
-# Jenkins
 mkdir -p jenkins-setup
 touch jenkins-setup/user_data.sh
+```
 
-# Helm Chart
-mkdir -p helm-chart/templates
-touch helm-chart/Chart.yaml
-touch helm-chart/values.yaml
-touch helm-chart/templates/deployment.yaml
+#### 📦 Web App & Helm Chart
 
-# CI/CD deployment script
-mkdir -p deployment-scripts
-touch deployment-scripts/deploy.sh
+```bash
+cd web-app
+touch .dockerignore Dockerfile index.html
+mkdir -p my-web-app/templates
+touch my-web-app/.helmignore
+touch my-web-app/Chart.yaml
+touch my-web-app/values.yaml
+touch my-web-app/templates/deployment.yaml
+cd ..
+```
 
-# Documentation and visuals
-mkdir -p docs/images
+#### 🛠️ Infrastructure (Terraform)
 
-# Terraform base + modules
-mkdir -p infrastructure/modules/{vpc,ec2,security-group,keypair}
+```bash
+mkdir -p infrastructure/modules/{vpc,ec2,ecr,eks,iam,keypair,security-group}
 touch infrastructure/main.tf
 touch infrastructure/variables.tf
 touch infrastructure/outputs.tf
+touch infrastructure/terraform.tfvars
 
-# Terraform module base files
-touch infrastructure/modules/vpc/{main.tf,variables.tf,outputs.tf}
-touch infrastructure/modules/ec2/{main.tf,variables.tf,outputs.tf}
-touch infrastructure/modules/security-group/{main.tf,variables.tf,outputs.tf}
-touch infrastructure/modules/keypair/{main.tf,variables.tf,outputs.tf}
+# Create base files for all modules
+for module in vpc ec2 ecr eks iam keypair security-group; do
+  touch infrastructure/modules/$module/main.tf
+  touch infrastructure/modules/$module/variables.tf
+  touch infrastructure/modules/$module/outputs.tf
+done
 ```
 
-**Screenshot:** Create Base Files and Templates
-![Create Base Files and Templates](./docs/images/3.mkdir_subdirectories_helm_jenkins_cicd.png)
-
-Initialize Git 
+#### 🖼️ Docs Folder
 
 ```bash
-git init
+mkdir -p docs/images
 ```
 
 ### 📐 Step 1.4 — Final Project Structure Overview
 
 ```bash
 helm-jenkins-cicd/
-├── README.md                      # Main project documentation
-│
-├── jenkins-setup/
-│   └── user_data.sh               # Jenkins installation and configuration script
-│
-├── helm-chart/
-│   ├── Chart.yaml                 # Helm chart metadata
-│   ├── values.yaml                # Default values for templates
-│   └── templates/
-│       └── deployment.yaml        # Kubernetes deployment template
-│
-├── deployment-scripts/
-│   └── deploy.sh                  # Script to trigger Helm/Jenkins pipeline
+├── docs/
+│   └── images/                          # Screenshots and diagrams
 │
 ├── infrastructure/
-│   ├── main.tf                    # Terraform root config
-│   ├── variables.tf               # Terraform input variables
-│   ├── outputs.tf                 # Terraform output values
+│   ├── main.tf                          # Root Terraform configuration
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars                 # TF variables (not committed if sensitive)
 │   └── modules/
-│       ├── vpc/
+│       ├── vpc/                         # VPC module
 │       │   ├── main.tf
 │       │   ├── variables.tf
 │       │   └── outputs.tf
-│       │
-│       ├── ec2/
+│       ├── ec2/                         # EC2 instance module
 │       │   ├── main.tf
 │       │   ├── variables.tf
 │       │   └── outputs.tf
-│       │
-│       ├── security-group/
+│       ├── ecr/                         # ECR (Elastic Container Registry) module
 │       │   ├── main.tf
 │       │   ├── variables.tf
 │       │   └── outputs.tf
-│       │
-│       └── keypair/
+│       ├── eks/                         # EKS (Kubernetes) cluster module
+│       │   ├── main.tf
+│       │   ├── variables.tf
+│       │   └── outputs.tf
+│       ├── iam/                         # IAM roles/policies module
+│       │   ├── main.tf
+│       │   ├── variables.tf
+│       │   └── outputs.tf
+│       ├── keypair/                     # SSH key pair module
+│       │   ├── main.tf
+│       │   ├── variables.tf
+│       │   └── outputs.tf
+│       └── security-group/             # Security group module
 │           ├── main.tf
 │           ├── variables.tf
 │           └── outputs.tf
 │
-├── docs/
-│   └── images/
-│       ├── architecture.png       # CI/CD architecture diagram (example)
-│       ├── jenkins-dashboard.png  # Jenkins UI screenshot (example)
-│       └── helm-deploy.png        # Helm output screenshot (example)
+├── jenkins-setup/
+│   └── user_data.sh                     # Jenkins installation and configuration
+│
+├── web-app/
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── index.html
+│   └── my-web-app/                      # Helm chart directory
+│       ├── .helmignore
+│       ├── Chart.yaml
+│       ├── values.yaml
+│       └── templates/
+│           └── deployment.yaml
+│
+├── .gitignore                           # Git ignore rules
+├── Jenkinsfile                          # Jenkins pipeline configuration
+└── README.md                            # Project documentation
 ```
+### 📦 Component Summary
+
+| Component         | Description                                                                 |
+| ----------------- | --------------------------------------------------------------------------- |
+| `docs/`           | Contains all project-related screenshots and architecture diagrams          |
+| `infrastructure/` | Terraform root and modules for VPC, EC2, EKS, IAM, ECR, etc.                |
+| `jenkins-setup/`  | Jenkins installation and setup using a user data script                     |
+| `web-app/`        | Source code for Dockerized web application, Helm chart inside `my-web-app/` |
+| `.gitignore`      | Specifies intentionally untracked files to ignore in Git                    |
+| `Jenkinsfile`     | Defines the CI/CD pipeline using Jenkins                                    |
+| `README.md`       | Markdown file documenting the entire project                                |
 
 ### 🔧 Tech Stack
 
-* **CI/CD:** Jenkins, Git
-* **Infrastructure as Code:** Terraform, AWS EC2
+* **CI/CD:** Jenkins
+* **Infrastructure as Code:** Terraform (AWS EC2, EKS, ECR, IAM, VPC)
+* **Containerization:** Docker
 * **Kubernetes Deployment:** Helm, kubectl
-* **Scripting:** Bash (user_data.sh)
+* **Scripting:** Bash (`user_data.sh`)
 * **Version Control:** Git & GitHub
-* **Operating System:** Ubuntu 22.04 LTS
+* **OS:** Ubuntu 22.04 LTS
 
-### 🧩 Key Integrations
+### 🔗 Key Integrations
 
-* Jenkins ↔ GitHub (Jenkinsfile-based triggers)
-* Jenkins ↔ Helm (automated Helm chart deployment)
-* Helm ↔ Kubernetes (package-based app deployment)
-* Terraform ↔ AWS (provisioning EC2, network, and security)
+* **Jenkins ↔ GitHub:** For webhook-triggered builds using `Jenkinsfile`
+* **Jenkins ↔ Docker & Helm:** For image build, push, and deploy to Kubernetes
+* **Helm ↔ EKS:** Deploy Helm charts to EKS-managed Kubernetes cluster
+* **Terraform ↔ AWS:** Provision EKS, EC2, IAM roles, networking, and storage
 
 ## 🛠️ **Task 2: Infrastructure Provisioning with Terraform**
 
 ### 🎯 **Objective**
 
-To provision a secure, production-like environment on AWS using Terraform. This includes creating a VPC, public subnet, Internet Gateway, route table, security group, and an EC2 instance where Jenkins will be installed automatically using `user_data.sh`.
+Provision a secure, production-like AWS environment using Terraform. This includes creating a VPC, public and private subnets, Internet Gateway, route table, security group, and an EC2 instance where Jenkins will be installed automatically via user_data.sh.
 
-### 📦 **Terraform Modules to Create**
+### 📦 **Terraform Modules Overview**
 
-We'll break it down into the following modules located inside `infrastructure/modules/`:
+This task is broken down into the following modules inside `infrastructure/modules/`:
 
-1. `vpc/` – Creates VPC, subnet, IGW, and route table.
-2. `security-group/` – Creates a security group to allow SSH (port 22) and Jenkins (port 8080).
-3. `ec2/` – Provisions the EC2 instance using a specified AMI and `user_data.sh`.
+1. `vpc/` — Creates VPC, public/private subnets, IGW, and route table
+2. `security-group/` –  Creates a security group allowing SSH, HTTP (optional), and Jenkins port (8080)
+3. `ec2/` – Provisions EC2 instance with a specified AMI and attaches user_data.sh.
+4. `keypair/` — Generates an EC2 key pair with private key saved locally.
 
 ### 🔹 **Step 2.1 — VPC Module**
 
@@ -448,8 +445,8 @@ resource "aws_security_group" "jenkins_sg" {
     cidr_blocks = var.allowed_cidrs
   }
 
-ingress {
-    description = "Allow SSH"
+  ingress {
+    description = "Allow HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -698,10 +695,10 @@ module "ec2" {
   source             = "./modules/ec2"
   ami_id             = var.ami_id
   instance_type      = var.instance_type
-  subnet_id          = module.vpc.public_subnet_ids[0]  # ✅ Get first public subnet ID
+  subnet_id          = module.vpc.public_subnet_ids[0]
   security_group_id  = module.security_group.security_group_id
   key_name           = module.keypair.key_name
-  user_data_path     = "${path.root}/../jenkins-setup/user_data.sh"
+  user_data_path     = "${path.module}/../jenkins-setup/user_data.sh"
   environment        = var.environment
 }
 ```
@@ -840,6 +837,7 @@ output "private_key_path" {
 ### 📄  `infrastructure/terraform.tfvars`
 
 ```hcl
+project_name        = "helm-jenkins-cicd"
 aws_region          = "us-east-1"
 environment         = "dev"
 
@@ -859,190 +857,224 @@ availability_zone_2   = "us-east-1b"
 ami_id              = "ami-020cba7c55df1f615"
 instance_type       = "t3.medium"
 key_name            = "jenkins-key"
-allowed_cidrs       = ["78.135.30.254/32"]
+allowed_cidrs       = ["0.0.0.0/0"]
+```
+ 
+### 📁 **Step 2.6: .gitignore Configuration**
+
+To ensure only relevant files are committed to Git, the following `.gitignore` file was created at the root of the project:
+
+```bash
+# Node modules and log files
+node_modules/
+*.log
+
+# Build output
+dist/
+build/
+
+# Environment files
+.env
+
+# IDE and OS-specific files
+.vscode/
+.DS_Store
+
+# Terraform state files (if applicable)
+*.tfstate
+*.tfstate.backup
+
+# Docker
+*.tar
 ```
 
-## 📘**Task 3: IAM Role Module for Jenkins EC2**
+### **Step 2.7: Terraform Configuration Commands**
 
-This task focuses on creating a modular and reusable **IAM Role configuration** using Terraform. The role is designed specifically for a **Jenkins EC2 instance** that will interact with AWS services like EKS.
+**After configuring, simply run:**
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+## 📘 **Task 3: IAM Role Module for Jenkins EC2**
+
+This task creates a **modular and reusable IAM configuration** using Terraform. The role grants a **Jenkins EC2 instance** permissions to interact with AWS services such as **EKS**, **ECR**, and **SSM**.
 
 ### 📁 Folder Structure
 
-The IAM configuration is structured within its own folder under the `terraform/` directory for clarity and modularity. It includes:
-
-* `main.tf`: Defines the IAM role, policies, and instance profile.
-* `variables.tf`: Manages input variables (e.g., role name).
-* `outputs.tf`: Exposes outputs for use in other modules or root configuration.
-
-### 🛠️ Functionality
-
-* Grants the EC2 instance permissions for:
-
-  * Managing EKS clusters and worker nodes.
-  * Accessing Amazon ECR for container images.
-  * Using AWS Systems Manager (SSM) for remote access.
-* Attaches the IAM role to an instance profile for EC2 use.
-
-
-### ✅ Folder Structure
+IAM configuration resides in its own module folder:
 
 ```
-terraform/
-├── iam/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── outputs.tf
-├── main.tf
-├── variables.tf
-└── outputs.tf
+infrastructure/
+└── modules/
+    └── iam/
+        ├── main.tf
+        ├── variables.tf
+        └── outputs.tf
 ```
 
-### ✅ `terraform/iam/main.tf`
+### 🛠️ **What It Does**
+
+* Provisions **three IAM roles**:
+
+  1. EKS Cluster Role (for control plane)
+  2. EKS Node Role (for worker nodes)
+  3. Jenkins EC2 Role (to interact with EKS, ECR, and SSM)
+* Attaches required policies
+* Creates **IAM instance profile** for Jenkins
+
+### ✅ `main.tf`
 
 ```hcl
 # EKS Cluster Role
-resource "aws_iam_role" "eks_cluster_role" {
+resource "aws_iam_role" "eks_cluster" {
   name = "eks-cluster-role"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        Service = "eks.amazonaws.com"
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "eks.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
       }
-      Action = "sts:AssumeRole"
-    }]
+    ]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
+  role       = aws_iam_role.eks_cluster.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks_cluster_role.name
 }
 
 # EKS Node Role
-resource "aws_iam_role" "eks_node_role" {
+resource "aws_iam_role" "eks_node" {
   name = "eks-node-role"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
       }
-      Action = "sts:AssumeRole"
-    }]
+    ]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "node_worker_policy" {
+  role       = aws_iam_role.eks_node.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.eks_node_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "eks_node_AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks_node_role.name
-}
-
-resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKS_CNI_Policy" {
+resource "aws_iam_role_policy_attachment" "node_cni_policy" {
+  role       = aws_iam_role.eks_node.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.eks_node_role.name
 }
 
-# Jenkins EC2 Role
-resource "aws_iam_role" "jenkins_role" {
+resource "aws_iam_role_policy_attachment" "node_ecr_readonly" {
+  role       = aws_iam_role.eks_node.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+# Jenkins Role for EC2
+resource "aws_iam_role" "jenkins" {
   name = var.role_name
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
       }
-      Action = "sts:AssumeRole"
-    }]
+    ]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "jenkins_AmazonEKSClusterPolicy" {
-  role       = aws_iam_role.jenkins_role.name
+resource "aws_iam_role_policy_attachment" "jenkins_eks_cluster" {
+  role       = aws_iam_role.jenkins.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "jenkins_AmazonEKSWorkerNodePolicy" {
-  role       = aws_iam_role.jenkins_role.name
+resource "aws_iam_role_policy_attachment" "jenkins_eks_worker" {
+  role       = aws_iam_role.jenkins.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "jenkins_ECRFullAccess" {
-  role       = aws_iam_role.jenkins_role.name
+resource "aws_iam_role_policy_attachment" "jenkins_ecr_full" {
+  role       = aws_iam_role.jenkins.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "jenkins_SSM" {
-  role       = aws_iam_role.jenkins_role.name
+resource "aws_iam_role_policy_attachment" "jenkins_ssm" {
+  role       = aws_iam_role.jenkins.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
 resource "aws_iam_instance_profile" "jenkins_profile" {
   name = "${var.role_name}-instance-profile"
-  role = aws_iam_role.jenkins_role.name
+  role = aws_iam_role.jenkins.name
 }
 ```
 
-### ✅ `terraform/iam/variables.tf`
+### ✅ `variables.tf`
 
 ```hcl
 variable "role_name" {
-  description = "Base name for the Jenkins IAM role"
+  description = "IAM role name for Jenkins EC2 instance"
   type        = string
   default     = "jenkins-iam-role"
 }
 ```
 
-### ✅ `terraform/iam/outputs.tf`
+### ✅ `outputs.tf`
 
 ```hcl
 output "eks_cluster_role_arn" {
-  description = "ARN of the EKS cluster IAM role"
-  value       = aws_iam_role.eks_cluster_role.arn
+  description = "IAM Role ARN for EKS Cluster"
+  value       = aws_iam_role.eks_cluster.arn
 }
 
 output "eks_node_role_arn" {
-  description = "ARN of the EKS node IAM role"
-  value       = aws_iam_role.eks_node_role.arn
+  description = "IAM Role ARN for EKS Worker Nodes"
+  value       = aws_iam_role.eks_node.arn
 }
 
 output "jenkins_role_arn" {
-  description = "ARN of the Jenkins EC2 IAM role"
-  value       = aws_iam_role.jenkins_role.arn
+  description = "IAM Role ARN for Jenkins EC2"
+  value       = aws_iam_role.jenkins.arn
 }
 
 output "jenkins_instance_profile" {
-  description = "Instance profile name for Jenkins EC2 role"
+  description = "IAM Instance Profile for Jenkins EC2"
   value       = aws_iam_instance_profile.jenkins_profile.name
 }
 ```
 
-### ✅ Usage
-
-The module is called from the root `main.tf` using:
+### ✅ Usage in Root `infrastructure/main.tf`
 
 ```hcl
 module "iam" {
-  source    = "./iam"
+  source    = "./modules/iam"
   role_name = "jenkins-eks-role"
 }
 ```
 
-**After configuring, simply run:**
+### 🧪 Run It
 
 ```bash
-cd terraform
+cd infrastructure
 terraform init
 terraform apply
 ```
@@ -1242,7 +1274,6 @@ resource "aws_security_group" "eks_sg" {
 }
 ```
 
-
 ### 5️⃣ **Integrate EKS Module in Your Root Terraform**
 
 In your root `infrastructure/main.tf`, add:
@@ -1252,9 +1283,9 @@ module "eks" {
   source                = "./modules/eks"
   cluster_name          = "helm-eks-cluster"
   vpc_id                = module.vpc.vpc_id
-  subnet_ids            = module.vpc.public_subnet_ids  # ✅ Must match the outputs.tf in vpc module
+  subnet_ids            = module.vpc.public_subnet_ids  
   node_instance_type    = "t3.medium"
-  eks_security_group_id = module.security_group.security_group_id  # ✅ Optional override
+  eks_security_group_id = module.security_group.security_group_id
 
   cluster_role_arn      = module.iam.eks_cluster_role_arn
   node_role_arn         = module.iam.eks_node_role_arn
@@ -1298,13 +1329,21 @@ terraform apply
 ```
 
 ### 7️⃣ **Verify**
-
 * After apply, note the cluster endpoint from output.
+
+*Installation of `kubectl` on my local system:
+
+**Screenshot:** Installed Kubectl
+![Installed Kubectl](./docs/images/8.install_kubectl_version.png)
+
 * You can update your `kubeconfig` using AWS CLI:
 
 ```bash
 aws eks --region us-east-1 update-kubeconfig --name helm-eks-cluster
 ```
+
+**Screenshot:** Kubeconfig
+![Update kubeconfig](./docs/images/9.aws_eks_helm_name.png)
 
 * Verify cluster access:
 
@@ -1312,7 +1351,10 @@ aws eks --region us-east-1 update-kubeconfig --name helm-eks-cluster
 kubectl get nodes
 ```
 
-# Summary Table
+**Screenshot:** Kubectl get nodes
+![kubectl get nodes](./docs/images/10.kubectl_nodes.png)
+
+### Summary Table
 
 | Step                | Description                                  |
 | ------------------- | -------------------------------------------- |
@@ -1329,62 +1371,97 @@ kubectl get nodes
 
 ### 🎯 **Objective**
 
-To install and configure Jenkins automatically on an AWS EC2 instance using a `user_data.sh` script. This lays the foundation for your CI/CD pipeline by ensuring Jenkins is ready with the necessary tools and plugins upon instance launch.
+Automate the installation and configuration of Jenkins on an AWS EC2 instance using a `user_data.sh` script. This establishes the foundation of your CI/CD pipeline by ensuring Jenkins is fully operational with essential tools and plugins immediately upon instance launch.
 
 ### 📝 **Step 5.1 — Write the `user_data.sh` Script**
 
 Create the script at:
 
+```bash
 jenkins-setup/user_data.sh
-
-````
+```
 
 Paste the following content inside:
 
 ```bash
 #!/bin/bash
+set -e
+exec > /var/log/user-data.log 2>&1
 
-# Update package lists
-sudo apt update -y
+echo "Starting system update..."
+apt-get update -y
+apt-get upgrade -y
 
-# Install OpenJDK 17 (required by Jenkins)
-sudo apt install -y openjdk-17-jdk
+echo "Installing OpenJDK 17..."
+apt-get install -y openjdk-17-jdk
 
-# Verify Java version
-java -version
+echo "Adding Jenkins repo and installing Jenkins..."
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | tee /etc/apt/sources.list.d/jenkins.list
+apt-get update -y
+apt-get install -y jenkins
+systemctl daemon-reload
+systemctl start jenkins
+systemctl enable jenkins
 
-# Add Jenkins key and repository
-wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+echo "Installing prerequisites for Docker..."
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg2
 
-# Update packages and install Jenkins
-sudo apt update -y
-sudo apt install -y jenkins git unzip curl
+echo "Adding Docker GPG key and repo..."
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# Start and enable Jenkins service
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
+echo \
+  "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Configure firewall to allow Jenkins (port 8080) and SSH (port 22)
-sudo ufw allow 8080
-sudo ufw allow OpenSSH
-sudo ufw --force enable
+apt-get update -y
+echo "Installing Docker CE..."
+apt-get install -y docker-ce docker-ce-cli containerd.io
 
-# Install Docker
-sudo apt install -y docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
+echo "Adding 'ubuntu' and 'jenkins' users to docker group..."
+usermod -aG docker ubuntu
+usermod -aG docker jenkins
 
-# Add Jenkins user to the Docker group
-sudo usermod -aG docker jenkins
+systemctl start docker
+systemctl enable docker
 
-# Install AWS CLI (optional but useful)
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+echo "Installing kubectl v1.30.0..."
+KUBECTL_VERSION="v1.30.0"
+for i in {1..5}; do
+    curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && break || sleep 5
+done
+chmod +x kubectl
+mv kubectl /usr/local/bin/
+kubectl version --client
+
+echo "Installing Helm..."
+for i in {1..5}; do
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && break || sleep 5
+done
+chmod 700 get_helm.sh
+./get_helm.sh
+helm version
+rm -f get_helm.sh
+
+if [ -d /home/ubuntu/.kube ]; then
+    chown -R ubuntu:ubuntu /home/ubuntu/.kube
+fi
+
+echo "Installing AWS CLI..."
+apt-get install -y unzip
+curl -fsSL -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 unzip awscliv2.zip
-sudo ./aws/install
+./aws/install
+rm -rf awscliv2.zip aws
 
-# Install Helm (optional for Kubernetes)
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+echo "Fixing permissions for Jenkins directories..."
+chown -R jenkins:jenkins /var/lib/jenkins
+chown -R jenkins:jenkins /var/cache/jenkins
+chown -R jenkins:jenkins /var/log/jenkins
+chown -R ubuntu:ubuntu /home/ubuntu/.kube
+
+echo "Jenkins, Docker, Helm, kubectl, and AWS CLI installation completed successfully!"
 ```
 
 ### 🚀 **Step 5.2 — Launch the Infrastructure**
@@ -1408,6 +1485,7 @@ Visit Jenkins in your browser:
 ```
 http://44.193.21.232:8080/
 ```
+![Instance Configuration](./docs/images/4b.jenkins_ip_address.png)
 
 ### 🔐 **Step 5.3 — Jenkins Access Notes**
 
@@ -1437,20 +1515,361 @@ Then proceed to install required plugins and create your first CI/CD pipeline.
 
 ### 🔌 **Step 5.4 — Recommended Jenkins Plugins**
 
-Install these manually via the web UI:
+Install Essential Plugins manually via the web UI:
 
-* Git plugin
-* Pipeline plugin
-* Blue Ocean (optional)
-* Kubernetes CLI plugin (if using K8s)
-* Docker plugin (if building images)
-* Credentials Binding plugin
+**Go to Manage Jenkins → Plugins → Available Plugins**
 
-📍 Install from:
-`Manage Jenkins → Plugins → Available`
+Search and Install:
 
+- Git plugin (For source code management)
 
-## 🧩 **Task 6: Dockerize, Push to ECR, and Automate Deployment with Jenkins & Helm**
+- Pipeline plugin (for CI/CD automation)
+
+- Docker Pipeline plugin
+
+- Kubernetes CLI Plugin (for Helm & Kubernetes)
+
+- AWS Credentials
+
+- AWS Steps Plugin
+
+- Credentials Binding Plugin (for secure credentials management)
+
+### 🔌 **Step 5.5: Restart Jenkins after installing plugins:**
+
+```bash
+sudo systemctl restart jenkins
+sudo systemctl status jenkins
+```
+
+### 🔌 **Step 5.6: Check installations:**
+
+```bash
+java -version  
+jenkins --version  
+docker --version  
+kubectl version --client  
+helm version 
+aws --version 
+```
+
+## ✅ **Task 6: Helm Chart Integration for Kubernetes Deployment**
+
+### 📌 **Objective**
+
+To containerize and deploy the dynamic web application using **Helm**, the Kubernetes package manager. This task involves creating and structuring the Helm chart for the web application and preparing it for deployment on the EKS cluster using Helm.
+
+### 🗂️ **Directory Structure**
+
+The `web-app` directory contains the main source files and the Helm chart. The project is structured as follows:
+
+```bash
+web-app/
+├── .dockerignore
+├── Dockerfile
+├── index.html
+├── my-web-app/
+│   ├── .helmignore
+│   ├── Chart.yaml
+│   ├── values.yaml
+│   ├── templates/
+│   │   ├── deployment.yaml
+│   │   ├── service.yaml
+│   │   └── _helpers.tpl
+```
+
+### 🛠️ **Steps Implemented**
+
+#### 1. ✅ Created the Helm Chart
+
+You created a Helm chart using the following command inside `web-app`:
+
+```bash
+helm create my-web-app
+```
+
+This auto-generated the necessary boilerplate inside `web-app/my-web-app`.
+
+This generates a my-web-app directory with:
+
+- **Chart.yaml:** Metadata about the chart
+
+- **values.yaml:** Default configuration values
+
+- **templates/:** Kubernetes manifest templates
+
+- **.helmignore:** Files to ignore during packaging
+
+#### 2. ✍️ Modified `Chart.yaml`
+
+The `Chart.yaml` file was updated with metadata to reflect the project:
+
+```yaml
+aapiVersion: v2
+name: jenkins-cicd-app
+version: 0.1.0
+description: A simple Helm chart for my Jenkins CI/CD web app
+appVersion: "1.0"
+```
+
+#### 3. ✍️ Customized `values.yaml`
+
+The default values were adjusted to fit the Docker image and application specs:
+
+```yaml
+# Default values for my-web-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 3000    # Updated from 80 to 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 120m
+    memory: 180Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 3000    # Updated from 80 to 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 3000    # Updated from 80 to 3000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+volumes: []
+
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+```
+#### Helm Templating Basics:
+
+**Templates:** Use Go templating syntax (e.g., {{ .Values.image.repository }}).
+
+**Values:** values.yaml provides defaults, override via CLI or custom values file.
+
+**Modifying Charts:**
+
+Update values.yaml for configuration changes (e.g., replicaCount, image.tag).
+
+Edit templates in templates/ for structural changes.
+
+Use helm lint to validate the chart.
+
+#### 4. 🧱 Updated Helm Templates
+
+##### `deployment.yaml`
+
+The default deployment was modified to match the correct image and container port using `values.yaml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-web-app.fullname" . }}
+  labels:
+    {{- include "my-web-app.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "my-web-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "my-web-app.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "my-web-app.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+```
+
+##### `service.yaml`
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "my-web-app.fullname" . }}
+  labels:
+    {{- include "my-web-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "my-web-app.selectorLabels" . | nindent 4 }}
+```
+
+### ✅ **Verifying the Chart Locally**
+
+To verify the Helm chart is well-formed:
+
+```bash
+helm lint my-web-app
+```
+
+You should see `1 chart(s) linted, 0 chart(s) failed`.
+
+### 📁 **.helmignore Configuration**
+
+A `.helmignore` file was added inside the Helm chart directory (`web-app/`) to prevent unwanted files from being packaged during deployment:
+
+```bash
+# Patterns to ignore when building packages.
+# This supports shell glob matching, relative path matching, and
+# negation (prefixed with !). Only one pattern per line.
+.DS_Store
+# Common VCS dirs
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+```
+
+## 🧩 **Task 7: Dockerize, Push to ECR, and Automate Deployment with Jenkins & Helm**
 
 ### 🎯 **Objective**
 
@@ -1463,29 +1882,32 @@ Install these manually via the web UI:
 Place this Dockerfile in the root of your web app project directory (outside the helm-chart folder):
 
 ```Dockerfile
-# Use official Node.js image as the base
-FROM node:16-alpine
+# Use the official Nginx image
+FROM nginx:alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy static content to nginx public folder
+COPY index.html /usr/share/nginx/html/
 
-# Copy package.json and package-lock.json (if any)
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install --production
-
-# Copy app source code
-COPY . .
-
-# Expose the port your app listens on
-EXPOSE 3000
-
-# Command to run the app
-CMD ["node", "index.js"]
+# Expose port
+EXPOSE 80
 ```
 
 > Adjust `EXPOSE` and `CMD` based on your app specifics.
+
+### **Create a .dockerignore**
+
+```Dockerfile
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.vscode
+.env
+*.md
+*.tgz
+*.tar
+*.zip
+```
 
 ### 2️⃣ **Terraform Module to Provision AWS ECR**
 
@@ -1495,12 +1917,16 @@ Create directory and files under:
 * **main.tf**
 
 ```hcl
-resource "aws_ecr_repository" "app_repo" {
-  name                 = "${var.repository_name}"
-  image_tag_mutability = "MUTABLE"
+resource "aws_ecr_repository" "this" {
+  name = var.repository_name
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
 
   tags = {
     Environment = var.environment
+    ManagedBy   = "Terraform"
   }
 }
 ```
@@ -1509,13 +1935,13 @@ resource "aws_ecr_repository" "app_repo" {
 
 ```hcl
 variable "repository_name" {
-  description = "Name of the ECR repository"
   type        = string
+  description = "The name of the ECR repository"
 }
 
 variable "environment" {
-  description = "Deployment environment (dev, staging, prod)"
   type        = string
+  description = "Environment name (e.g., dev, prod)"
 }
 ```
 
@@ -1535,7 +1961,7 @@ Add to your root `infrastructure/main.tf`:
 ```hcl
 module "ecr" {
   source          = "./modules/ecr"
-  repository_name = "helm-jenkins-webapp"
+  repository_name = "jenkins-cicd-app"
   environment     = var.environment
 }
 ```
@@ -1556,49 +1982,44 @@ terraform plan
 terraform apply
 ```
 
-### 4️⃣ **Prepare Jenkins EC2 Instance to Use Docker & AWS CLI**
-
-Update your `jenkins-setup/user_data.sh` to install Docker and AWS CLI if not done already:
+### 4️⃣ **Create Web Application**
 
 ```bash
-#!/bin/bash
-
-# Update packages
-sudo apt update -y
-
-# Install Java for Jenkins
-sudo apt install -y openjdk-11-jdk
-
-# Install Jenkins (assuming repo added)
-sudo apt install -y jenkins git unzip curl
-
-# Start Jenkins service
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
-
-# Install Docker
-sudo apt install -y docker.io
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Add Jenkins user to docker group to run docker commands without sudo
-sudo usermod -aG docker jenkins
-
-# Install AWS CLI v2
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
-# Install Helm
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-# Allow Jenkins port
-sudo ufw allow 8080
-sudo ufw allow OpenSSH
-sudo ufw --force enable
+web-app/index.html
 ```
 
-**Re-run Terraform to update EC2 or manually update instance.**
+**Purpose:** This is the front-end static page that will be served by Nginx inside the Docker container.
+
+Content:
+
+```bash
+#<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jenkins CI/CD App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin-top: 100px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        p {
+            color: #34495e;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Welcome to Jenkins CI/CD App!</h1>
+    <p>This app was built and deployed using Docker, Jenkins, and Terraform.</p>
+</body>
+</html>
+```
 
 ### 5️⃣ **Create Jenkinsfile for CI/CD Pipeline**
 
@@ -1606,67 +2027,87 @@ Place this Jenkinsfile at your project root (where your Dockerfile is):
 
 ```groovy
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    AWS_ACCOUNT_ID = '<your-aws-account-id>'
-    AWS_REGION = 'us-east-1'  // Update to your region
-    ECR_REPOSITORY = 'helm-jenkins-webapp'
-    IMAGE_TAG = "${env.BUILD_NUMBER}"
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+    environment {
+        AWS_REGION = 'us-east-1'
+        ECR_REGISTRY = '615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app' 
+        IMAGE_TAG = "latest"  
+        HELM_CHART_PATH = "./web-app/my-web-app/"  
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
+        DOCKER_IMAGE = "${ECR_REGISTRY}:${IMAGE_TAG}"
+        DOCKERFILE_PATH = "./web-app/Dockerfile"  
     }
 
-    stage('Login to ECR') {
-      steps {
-        script {
-          sh '''
-            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-          '''
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Holuphilix/helm-jenkins-cicd.git'
+            }
         }
-      }
+
+        stage('Lint Helm Chart') {
+            steps {
+                sh "helm lint ${HELM_CHART_PATH}"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -f ${DOCKERFILE_PATH} -t ${DOCKER_IMAGE} ./web-app"
+            }
+        }
+
+        stage('Push Docker Image to ECR') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-iam-credentials',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh """
+                        aws ecr get-login-password --region ${AWS_REGION} | \
+                        docker login --username AWS --password-stdin ${ECR_REGISTRY}
+                        docker push ${DOCKER_IMAGE}
+                    """
+                }
+            }
+        }
+
+        stage('Deploy with Helm') {
+            steps {
+                sh """
+                    helm upgrade --install my-web-app ${HELM_CHART_PATH} \
+                    --namespace default \
+                    --set image.repository=${ECR_REGISTRY} \
+                    --set image.tag=${IMAGE_TAG} \
+                    --set replicaCount=2
+                """
+            }
+        }
+
+        stage('Test Deployment') {
+            steps {
+                sh "helm test my-web-app --namespace default"
+            }
+        }
     }
 
-    stage('Build Docker Image') {
-      steps {
-        script {
-          sh '''
-            docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-            docker tag $ECR_REPOSITORY:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-          '''
+    post {
+        always {
+            sh "docker logout ${ECR_REGISTRY}"
         }
-      }
-    }
-
-    stage('Push Docker Image to ECR') {
-      steps {
-        script {
-          sh '''
-            docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-          '''
+        success {
+            echo 'Pipeline completed successfully!'
         }
-      }
-    }
-
-    stage('Deploy with Helm') {
-      steps {
-        script {
-          sh '''
-            helm upgrade --install my-webapp ./helm-chart --set image.repository=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY,image.tag=$IMAGE_TAG
-          '''
+        failure {
+            echo 'Pipeline failed. Check logs for details.'
         }
-      }
     }
-  }
 }
 ```
 
-* Replace `<your-aws-account-id>` with your AWS account number.
 * This Jenkinsfile does:
 
   * Checkout code
@@ -1675,47 +2116,19 @@ pipeline {
   * Push image to ECR
   * Deploy/upgrade app using Helm chart with image values
 
-### 6️⃣ **Update Helm Chart for Dynamic Image Tag**
+### 6️⃣ **Deploy the Web Application**
 
-In `helm-chart/values.yaml` add:
+### Helm Deployment and Docker Image Workflow
 
-```yaml
-image:
-  repository: "nginx" # default placeholder
-  tag: "latest"
-```
+### Prerequisites
 
-In `helm-chart/templates/deployment.yaml` update container image section:
-
-```yaml
-containers:
-  - name: my-webapp
-    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-    ports:
-      - containerPort: 3000
-```
+* Kubernetes cluster configured (e.g., EKS)
+* `kubectl` configured to connect to your cluster
+* `helm` installed locally
+* Docker image pushed to AWS ECR repository
 
 
-## 7️⃣ **Test Your Full CI/CD Pipeline**
-
-* Push your code including Dockerfile, Jenkinsfile, helm-chart, to your GitHub repo.
-* Set up Jenkins job to pull from GitHub repo and trigger on commits.
-* Make sure Jenkins can authenticate to AWS (using instance role or AWS credentials).
-* Trigger a build and watch the pipeline: image built, pushed to ECR, and deployed with Helm.
-* Access your app on Kubernetes or whatever cluster you're using.
-
-# Summary
-
-| Step                 | What you do                                 |
-| -------------------- | ------------------------------------------- |
-| Dockerfile           | Containerize the app                        |
-| Terraform ECR Module | Provision ECR repo to store Docker images   |
-| Jenkins EC2 Setup    | Ensure Docker, AWS CLI, Helm installed      |
-| Jenkinsfile          | Automate build → push → deploy              |
-| Helm Chart Update    | Use dynamic image repository and tag values |
-
-
-Perfect, you’ve provided the full ECR repository URI:
+**Perfect, you’ve provided the full ECR repository URI based on the outputs:**
 
 ```
 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
@@ -1723,9 +2136,7 @@ Perfect, you’ve provided the full ECR repository URI:
 
 Now let’s continue step by step using **your actual values**.
 
----
-
-### ✅ Step-by-Step with Your ECR Info
+### Step-by-Step with Your ECR Info
 
 #### 🔹 1. Authenticate Docker to your ECR:
 
@@ -1740,7 +2151,6 @@ Run this from the root of your copied project directory:
 ```bash
 docker build -t jenkins-cicd-app .
 ```
-
 #### 🔹 3. Tag the image for your ECR repository:
 
 ```bash
@@ -1753,82 +2163,27 @@ docker tag jenkins-cicd-app:latest 615299759133.dkr.ecr.us-east-1.amazonaws.com/
 docker push 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
 ```
 
----
-
-### ✅ Next Steps After Push (Optional):
-
-Once the push is successful, you can:
-
-* Use it in an ECS Fargate or EC2 task definition.
-* Deploy via Helm or Kubernetes if you're containerizing Jenkins in EKS.
-* Connect it to your CI/CD pipeline.
-
-Let me know when you're done or if you encounter any error during the push process.
-
-Awesome, glad it worked! 🎉
-
----
-
-### For your README.md: Documenting the **Helm deployment** and **using your saved Docker images in ECR**
-
-Here's a clear, copy-paste-ready **Task Module** you can add in your README to explain your Helm setup and image management.
-
----
-
-# Helm Deployment and Docker Image Workflow
-
-## Prerequisites
-
-* Kubernetes cluster configured (e.g., EKS)
-* `kubectl` configured to connect to your cluster
-* `helm` installed locally
-* Docker image pushed to AWS ECR repository
-
----
-
-## Step 1: Authenticate Docker to AWS ECR
+### Install the Helm Chart:
 
 ```bash
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 615299759133.dkr.ecr.us-east-1.amazonaws.com
+cd ~/helm-jenkins-cicd/web-app/my-web-app
+helm install my-web-app ./
 ```
 
----
+**Screenshot:** Installed helm chart
+![Installed helm chart](./docs/images/15.install_hell_my-web-app.png)
 
-## Step 2: Build and Push Docker Image to AWS ECR
-
-Build your Docker image locally, tag it with your ECR repo URL, and push it:
+### Verify Deployment:
 
 ```bash
-docker build -t 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest .
-docker push 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+kubectl get pods
+kubectl get services
 ```
 
----
+**Screenshot:** verify pods and services deploy
+![Installed helm chart](./docs/images/16.verify_pods_services.png)
 
-## Step 3: Configure `values.yaml` for Helm Chart
-
-Set your Docker image repository and tag in `values.yaml`:
-
-```yaml
-image:
-  repository: 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
-  tag: "latest"
-  pullPolicy: IfNotPresent
-```
-
----
-
-## Step 4: Deploy or Upgrade the Application with Helm
-
-Run this command to install or upgrade your Helm release:
-
-```bash
-helm upgrade my-web-app . --install --namespace default
-```
-
----
-
-## Step 5: Access Your Application via Port Forwarding
+### **Access Your Application via Port Forwarding**
 
 Get your pod name and forward the port to your local machine:
 
@@ -1837,22 +2192,424 @@ export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/nam
 export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
 kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
 ```
+**Screenshot:** Port forwarding
+![Port forwarding](./docs/images/18.helm_upgrade_portforwarding.png)
 
-Then open your browser to:
+**Then Access via http:**
 
 ```
 http://localhost:8080
 ```
+**Screenshot:** Port Accessed web page
+![Local host](./docs/images/17.localhost_port.png)
 
----
-
-## Summary
+### Summary
 
 * Build and push Docker images to AWS ECR.
 * Configure your Helm chart `values.yaml` to use the correct image repo and tag.
 * Use Helm commands to deploy or upgrade your app.
 * Use `kubectl port-forward` to access your app locally.
 
----
+## 🧩 **Task 8: Automate Helm Deployment to EKS with Jenkins CI/CD Pipeline**
 
-Would you like me to help you generate a full README.md file with this included? Or help with the actual Helm module files?
+### 🎯 **Objective**
+
+In this task, you'll automate the full lifecycle of building, pushing, and deploying a Dockerized Node.js application using Jenkins CI/CD, AWS ECR, Helm, and EKS.
+
+### 🔧 Step 8.1: Initialize Git and Push Code to GitHub
+
+#### 🔹 Stage and Commit Your Project
+
+In this step, you'll prepare your application files, Helm chart, Dockerfile, and Jenkinsfile for version control.
+
+Run the following commands in your project directory:
+
+```bash
+git add .
+git config --global user.name "YourName"
+git config --global user.email "YourEmail"
+git commit -m "Initial project setup with Helm, Jenkinsfile, Dockerfile, and Terraform"
+```
+
+#### 🔹 Push Code to GitHub
+
+Create a new GitHub repository named **`helm-jenkins-cicd`** and push your local repo:
+
+```bash
+git remote add origin https://github.com/YourUsername/helm-jenkins-cicd.git
+git branch -M main
+git push -u origin main
+```
+
+### 🛠️ Step 8.2: Configure Jenkins Pipeline for CI/CD
+
+#### 🔹 Create a New Jenkins Pipeline Job
+
+1. Open Jenkins Dashboard → Click **“New Item”**
+2. Name your job (`helm-jenkins-cicd`)
+3. Select **Pipeline**
+4. Click **OK**
+
+#### 🔹 Configure Pipeline from SCM
+
+In the pipeline configuration:
+
+* **Definition**: Pipeline script from SCM
+* **SCM**: Git
+* **Repository URL**:
+
+  ```
+  https://github.com/Holuphilix/helm-jenkins-cicd.git
+  ```
+* **Script Path**: `Jenkinsfile`
+* **Credentials**: (Optional if repo is public)
+
+Click **Save**.
+
+### 🔹 Configure AWS & ECR Credentials
+
+Go to:
+`Manage Jenkins` → `Manage Credentials` → `System` → `Global credentials` → `Add Credentials`
+
+Add the following:
+
+* **AWS Credentials**
+
+  * Kind: AWS Credentials
+  * ID: `aws-iam-credentials`
+  * Access Key ID / Secret Access Key
+
+* **Other Secrets**
+
+  * Region: `us-east-1`
+  * ECR URL:
+
+    ```
+    615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+    ```
+
+### 🔹 Add GitHub Webhook
+
+In your GitHub repository:
+
+* Navigate to: `Settings` → `Webhooks` → **Add webhook**
+* **Payload URL**:
+
+  ```
+  http://<your-jenkins-public-ip>/github-webhook/
+  ```
+* **Content Type**: `application/json`
+* **Trigger**: `Just the push event`
+* Click **Save**
+
+### 🚀 Step 8.3: Test Full CI/CD Pipeline
+
+#### ✅ How the Jenkinsfile Works
+
+Once triggered by a code push:
+
+1. Pulls the latest code from GitHub
+2. Authenticates with AWS ECR
+3. Builds Docker image
+4. Pushes Docker image to ECR
+5. Deploys app to EKS using Helm with dynamic image tag
+
+#### 📦 Included Project Files
+
+| File          | Purpose                          |
+| ------------- | -------------------------------- |
+| `Dockerfile`  | Containerize the Node.js app     |
+| `index.html`  | Sample web page for app frontend |
+| `Jenkinsfile` | Full CI/CD pipeline definition   |
+| `helm-chart/` | Helm templates for Kubernetes    |
+
+
+### 🖼️ Visual Confirmation
+
+#### ✅ Jenkins Build Success
+
+![Jenkins Build Success](./docs/images/23.jenkins_build_success.png)
+
+### 🔁 Jenkins Pipeline Flow
+
+![Jenkins Pipeline View](./docs/images/22.jenkins_pipeline_Overview.png)
+
+### 📄 Jenkins Console Output
+
+```text
+Started by user Philip Oludolamu
+Obtained Jenkinsfile from git https://github.com/Holuphilix/helm-jenkins-cicd.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/helm-jenkins-cicd
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/helm-jenkins-cicd/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Holuphilix/helm-jenkins-cicd.git # timeout=10
+Fetching upstream changes from https://github.com/Holuphilix/helm-jenkins-cicd.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/Holuphilix/helm-jenkins-cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 # timeout=10
+Commit message: "Update Jenkinsfile with and Helm fixes"
+ > git rev-list --no-walk cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/helm-jenkins-cicd/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Holuphilix/helm-jenkins-cicd.git # timeout=10
+Fetching upstream changes from https://github.com/Holuphilix/helm-jenkins-cicd.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/Holuphilix/helm-jenkins-cicd.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main cb5f89f14ccdf4a9a6b213c68afe8d2db8a0a6b0 # timeout=10
+Commit message: "Update Jenkinsfile with and Helm fixes"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lint Helm Chart)
+[Pipeline] sh
++ helm lint ./web-app/my-web-app/
+==> Linting ./web-app/my-web-app/
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] sh
++ docker build -f ./web-app/Dockerfile -t 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest ./web-app
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon   25.6kB
+Step 1/5 : FROM docker:24.0.5-dind
+ ---> 7015f2c475d5
+Step 2/5 : RUN apk add --no-cache bash curl unzip python3 py3-pip
+ ---> Using cache
+ ---> d74d44c2ac52
+Step 3/5 : RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" &&     unzip /tmp/awscliv2.zip -d /tmp &&     /tmp/aws/install &&     rm -rf /tmp/awscliv2.zip /tmp/aws
+ ---> Using cache
+ ---> 555a5b66100d
+Step 4/5 : RUN curl -fsSL https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz | tar -xz -C /tmp &&     mv /tmp/linux-amd64/helm /usr/local/bin/helm &&     chmod +x /usr/local/bin/helm &&     rm -rf /tmp/linux-amd64
+ ---> Using cache
+ ---> 30d514e5da5a
+Step 5/5 : CMD ["bash"]
+ ---> Using cache
+ ---> 8348b81fa98d
+Successfully built 8348b81fa98d
+Successfully tagged 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image to ECR)
+[Pipeline] withCredentials
+Masking supported pattern matches of $AWS_ACCESS_KEY_ID or $AWS_SECRET_ACCESS_KEY
+[Pipeline] {
+[Pipeline] sh
++ aws ecr get-login-password --region us-east-1
++ docker login --username AWS --password-stdin 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credential-stores
+
+Login Succeeded
++ docker push 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app:latest
+The push refers to repository [615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app]
+adc2853d732f: Preparing
+34dce121c15b: Preparing
+59ef9e57ddda: Preparing
+da6f10ef88fc: Preparing
+b9742287c41f: Preparing
+1ab37860a37f: Preparing
+5392a835ad35: Preparing
+7e1cd619d6c4: Preparing
+fef6fd37f1fa: Preparing
+ae9916cb0574: Preparing
+0a96e28c6575: Preparing
+8b7c8d6e8edd: Preparing
+eaddb746baaa: Preparing
+42ee6b577474: Preparing
+5f70bf18a086: Preparing
+ebeab089b731: Preparing
+4693057ce236: Preparing
+1ab37860a37f: Waiting
+5392a835ad35: Waiting
+7e1cd619d6c4: Waiting
+eaddb746baaa: Waiting
+42ee6b577474: Waiting
+5f70bf18a086: Waiting
+ebeab089b731: Waiting
+4693057ce236: Waiting
+fef6fd37f1fa: Waiting
+ae9916cb0574: Waiting
+0a96e28c6575: Waiting
+8b7c8d6e8edd: Waiting
+da6f10ef88fc: Pushed
+b9742287c41f: Pushed
+5392a835ad35: Pushed
+adc2853d732f: Pushed
+7e1cd619d6c4: Pushed
+fef6fd37f1fa: Pushed
+ae9916cb0574: Pushed
+0a96e28c6575: Pushed
+1ab37860a37f: Pushed
+8b7c8d6e8edd: Pushed
+5f70bf18a086: Pushed
+eaddb746baaa: Pushed
+59ef9e57ddda: Pushed
+42ee6b577474: Pushed
+ebeab089b731: Pushed
+4693057ce236: Pushed
+34dce121c15b: Pushed
+latest: digest: sha256:3c4edfd93196cdafea30f055daae666ea6b17272398620c951191fda2bc32d9b size: 3887
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy with Helm)
+[Pipeline] sh
++ helm upgrade --install my-web-app ./web-app/my-web-app/ --namespace default --set image.repository=615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app --set image.tag=latest --set replicaCount=2
+Release "my-web-app" has been upgraded. Happy Helming!
+NAME: my-web-app
+LAST DEPLOYED: Wed Jul 30 23:13:09 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 4
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=jenkins-cicd-app,app.kubernetes.io/instance=my-web-app" -o jsonpath="{.items[0].metadata.name}")
+  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Deployment)
+[Pipeline] sh
++ helm test my-web-app --namespace default
+NAME: my-web-app
+LAST DEPLOYED: Wed Jul 30 23:13:09 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 4
+TEST SUITE:     my-web-app-jenkins-cicd-app-test-connection
+Last Started:   Wed Jul 30 23:13:11 2025
+Last Completed: Wed Jul 30 23:13:15 2025
+Phase:          Succeeded
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=jenkins-cicd-app,app.kubernetes.io/instance=my-web-app" -o jsonpath="{.items[0].metadata.name}")
+  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
++ docker logout 615299759133.dkr.ecr.us-east-1.amazonaws.com/jenkins-cicd-app
+Removing login credentials for 615299759133.dkr.ecr.us-east-1.amazonaws.com
+[Pipeline] echo
+Pipeline completed successfully!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+```
+
+### 🌐 **Access the Application**
+
+Visit in browser:
+
+```bash
+http://localhost:8080
+```
+**Screenshot:** Port Accessed web page
+![Local host](./docs/images/17.localhost_port.png)
+
+## **Task 9: Conclusion**
+
+This project was successfully completed and resulted in a fully deployed and accessible web application hosted on Amazon EKS, orchestrated via Helm, and automated through a Jenkins CI/CD pipeline.
+
+### 🚀 **Project Achievements:**
+
+* 🔧 **Infrastructure Provisioning with Terraform**
+
+  * Developed modular Terraform code to provision a robust AWS environment, including VPC, subnets, security groups, ECR repository, and EKS cluster.
+
+* 📦 **Containerization and Image Deployment**
+
+  * Dockerized a web application and pushed the image to **Amazon ECR** for secure and scalable container storage.
+
+* ☸️ **Kubernetes Deployment Using Helm**
+
+  * Created a custom **Helm chart** to streamline Kubernetes deployment to the EKS cluster.
+  * Applied Helm values for flexible environment-specific configurations.
+
+* 🤖 **CI/CD Pipeline with Jenkins**
+
+  * Automated the end-to-end build, push, and deploy workflow using a Jenkins Pipeline (Jenkinsfile).
+  * Jenkins was successfully installed via EC2 UserData and configured to orchestrate Docker and Kubernetes tasks.
+
+* 🌐 **Successful Application Access**
+
+  * The application is **live and accessible**, confirming that all components—Terraform infrastructure, Docker containerization, Helm deployment, and Jenkins automation—are functioning as expected.
+
+### 🎯 **Project Outcome:**
+
+By integrating **Infrastructure as Code (IaC)**, **Containerization**, **Kubernetes Orchestration**, and **CI/CD Automation**, this project demonstrates a real-world DevOps workflow from code to deployment. It also showcases your ability to:
+
+* Build and ship modern cloud-native applications.
+* Automate infrastructure provisioning and application delivery.
+* Leverage AWS services like EC2, ECR, and EKS effectively.
+* Use open-source tools like Jenkins, Docker, kubectl, and Helm in a production-ready pipeline.
+
+### 📘 **Final Notes & Recommendations:**
+
+* ✅ Project completed and web app successfully verified via browser.
+* 🔒 Future improvement: Set up a **Kubernetes Ingress Controller** or **AWS LoadBalancer** for persistent external access instead of using `kubectl port-forward`.
+* 📈 Consider adding monitoring with tools like **Prometheus & Grafana** for observability.
+* 🛡️ Secure the CI/CD process with **secrets management** (e.g., AWS Secrets Manager or Jenkins Credentials).
+
+
+## ✍️ **Author**
+
+**Philip Oluwaseyi Oludolamu**
+👨‍💻 DevOps Engineer | Cloud Enthusiast | CI/CD | Terraform | AWS | Kubernetes
+📧 [oluphilix@gmail.com](mailto:oluphilix@gmail.com)
+🌐 [GitHub](https://github.com/Holuphilix) | [LinkedIn](https://www.linkedin.com/in/philip-oludolamu)
