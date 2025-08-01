@@ -1869,8 +1869,7 @@ A `.helmignore` file was added inside the Helm chart directory (`web-app/`) to p
 .vscode/
 ```
 
-## 🧩 **Task 7: Dockerize, Push to ECR, and Automate Deployment with Jenkins & Helm**
-
+## 🧩 **Task 7: Dockerize the Application and Deploy to EKS Using Helm**
 ### 🎯 **Objective**
 To containerize the web application using Docker, push the image to Amazon ECR, and deploy it to Amazon EKS using a Helm chart. This step also includes testing manual deployment before automating it in the CI/CD pipeline.
 
